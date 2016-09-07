@@ -122,10 +122,11 @@ public class Member implements IMember {
 	public void removeLoan(ILoan loan) {
 		// TODO Remove book loan from member account
 		if (loan == null || !this.loanList.contains(loan)) {
-            throw new RuntimeException(String.format("Member: removeLoan : loan is null or not found in loanList", new Object[0]));
-        }
-        this.loanList.remove(loan);
-        this.updateBorrowState();
+			throw new RuntimeException(
+					String.format("Member: removeLoan : loan is null or not found in loanList", new Object[0]));
+		}
+		this.loanList.remove(loan);
+		this.updateBorrowState();
 	}
 
 	@Override
@@ -163,14 +164,15 @@ public class Member implements IMember {
 		// TODO Return member member Id
 		return this.id;
 	}
-	
-	private Boolean isBorrowingAllowed() {
-        boolean check = !this.hasOverDueLoans() && !this.hasReachedFineLimit() && !this.hasReachedLoanLimit();
-        return check;
-    }
 
-    private void updateBorrowState() {
-        this.state = this.isBorrowingAllowed() != false ? EMemberState.BORROWING_ALLOWED : EMemberState.BORROWING_DISALLOWED;
-    }
+	private Boolean isBorrowingAllowed() {
+		boolean check = !this.hasOverDueLoans() && !this.hasReachedFineLimit() && !this.hasReachedLoanLimit();
+		return check;
+	}
+
+	private void updateBorrowState() {
+		this.state = this.isBorrowingAllowed() != false ? EMemberState.BORROWING_ALLOWED
+				: EMemberState.BORROWING_DISALLOWED;
+	}
 
 }

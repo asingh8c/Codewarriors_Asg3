@@ -1,6 +1,7 @@
 package library.entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import library.interfaces.entities.EMemberState;
@@ -55,7 +56,8 @@ public class Member implements IMember {
 
 	@Override
 	public boolean hasFinesPayable() {
-		// TODO Returns boolean indicating if there is pending fine in members account
+		// TODO Returns boolean indicating if there is pending fine in members
+		// account
 		// account
 		if (this.totalFine > 0.0f) {
 			return true;
@@ -66,7 +68,7 @@ public class Member implements IMember {
 	@Override
 	public boolean hasReachedFineLimit() {
 		// TODO Returns boolean indicating if pending fine has reached limit
-		if(this.totalFine >= 10.0f) {
+		if (this.totalFine >= 10.0f) {
 			return true;
 		}
 		return false;
@@ -81,20 +83,20 @@ public class Member implements IMember {
 	@Override
 	public void addFine(float fine) {
 		// TODO Add fine in member to existing fine amount
-		if(fine > 0) {
+		if (fine > 0) {
 			this.totalFine += fine;
-		}
-		else {
+		} else {
 			throw new RuntimeException("Member can not be a negative number");
 		}
-		
+
 	}
 
 	@Override
 	public void payFine(float payment) {
 		// TODO Update total fine when Member pays off fine
 		if (payment < 0.0f || payment > this.totalFine) {
-			throw new RuntimeException("Negative Value for fine payment and payment greater than total fine is not allowed");
+			throw new RuntimeException(
+					"Negative Value for fine payment and payment greater than total fine is not allowed");
 		}
 		this.totalFine -= payment;
 	}
@@ -102,55 +104,73 @@ public class Member implements IMember {
 	@Override
 	public void addLoan(ILoan loan) {
 		// TODO Add book loan to the loan list
-
+		if (!isBorrowingAllowed()) {
+			throw new RuntimeException(
+					String.format("Member: addLoan : operation not allowed in state: %s", new Object[] { this.state }));
+		}
+		this.loanList.add(loan);
+		this.updateBorrowState();
 	}
 
 	@Override
 	public List<ILoan> getLoans() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Return non-editable loan list of member
+		return Collections.unmodifiableList(this.loanList);
 	}
 
 	@Override
 	public void removeLoan(ILoan loan) {
-		// TODO Auto-generated method stub
-
+		// TODO Remove book loan from member account
+		if (loan == null || !this.loanList.contains(loan)) {
+            throw new RuntimeException(String.format("Member: removeLoan : loan is null or not found in loanList", new Object[0]));
+        }
+        this.loanList.remove(loan);
+        this.updateBorrowState();
 	}
 
 	@Override
 	public EMemberState getState() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Return borrow status of member entity
+		return this.state;
 	}
 
 	@Override
 	public String getFirstName() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Return member first name
+		return this.firstName;
 	}
 
 	@Override
 	public String getLastName() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Return member last name
+		return this.lastName;
 	}
 
 	@Override
 	public String getContactPhone() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Return member contact telephone number
+		return this.contactPhone;
 	}
 
 	@Override
 	public String getEmailAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Return member email address
+		return this.email;
 	}
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
+		// TODO Return member member Id
+		return this.id;
 	}
+	
+	private Boolean isBorrowingAllowed() {
+        boolean check = !this.hasOverDueLoans() && !this.hasReachedFineLimit() && !this.hasReachedLoanLimit();
+        return check;
+    }
+
+    private void updateBorrowState() {
+        this.state = this.isBorrowingAllowed() != false ? EMemberState.BORROWING_ALLOWED : EMemberState.BORROWING_DISALLOWED;
+    }
 
 }

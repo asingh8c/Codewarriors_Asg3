@@ -44,4 +44,42 @@ public abstract class Book implements IBook {
 		this.loan = loan;
 		this.state = EBookState.ON_LOAN;
 	}
+
+	@Override
+	public ILoan getLoan() {
+		return this.loan;
+	}
+
+	@Override
+	public void returnBook(boolean damaged) {
+		if (this.state != EBookState.ON_LOAN && this.state != EBookState.LOST) {
+			throw new RuntimeException(String.format("Illegal operation in state : %s", new Object[] { this.state }));
+		}
+		this.loan = null;
+		this.state = damaged ? EBookState.DAMAGED : EBookState.AVAILABLE;
+	}
+
+	@Override
+	public void lose() {
+		if (this.state != EBookState.ON_LOAN) {
+			throw new RuntimeException(String.format("Illegal operation in state : %s", new Object[] { this.state }));
+		}
+		this.state = EBookState.LOST;
+	}
+
+	@Override
+	public void repair() {
+		if (this.state != EBookState.DAMAGED) {
+			throw new RuntimeException(String.format("Illegal operation in state : %s", new Object[] { this.state }));
+		}
+		this.state = EBookState.AVAILABLE;
+	}
+
+	@Override
+	public void dispose() {
+		if (this.state != EBookState.AVAILABLE && this.state != EBookState.DAMAGED && this.state != EBookState.LOST) {
+			throw new RuntimeException(String.format("Illegal operation in state : %s", new Object[] { this.state }));
+		}
+		this.state = EBookState.DISPOSED;
+	}
 }

@@ -96,7 +96,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testAddLoan() {
-		fail("Not yet implemented"); // TODO
+		mem
 	}
 
 	/**

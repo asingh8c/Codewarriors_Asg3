@@ -103,5 +103,10 @@ public abstract class Book implements IBook {
         return this.callNumber;
     }
 
+	@Override
+	public int getID() {
+        return this.id;
+    }
+
 
 }

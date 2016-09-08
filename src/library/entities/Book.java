@@ -82,4 +82,36 @@ public abstract class Book implements IBook {
 		}
 		this.state = EBookState.DISPOSED;
 	}
+
+	@Override
+	public EBookState getState() {
+		return this.state;
+	}
+
+	@Override
+	public String getAuthor() {
+		return this.author;
+	}
+
+	@Override
+	public String getTitle() {
+		return this.title;
+	}
+
+	@Override
+	public String getCallNumber() {
+		return this.callNumber;
+	}
+
+	@Override
+	public int getID() {
+		return this.id;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Id: %d\nAuthor: %s\nTitle: %s\nCall Number %s", this.id, this.author, this.title,
+				this.callNumber);
+	}
+
 }

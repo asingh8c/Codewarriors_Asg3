@@ -98,4 +98,10 @@ public abstract class Book implements IBook {
 		return this.title;
 	}
 
+	@Override
+	public String getCallNumber() {
+        return this.callNumber;
+    }
+
+
 }

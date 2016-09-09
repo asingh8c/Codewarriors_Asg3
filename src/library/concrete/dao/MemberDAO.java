@@ -18,6 +18,7 @@ public class MemberDAO implements IMemberDAO {
 			throw new IllegalArgumentException();
 		}else{
 			this.memberHelper = memberHelper;
+			members = new ArrayList<>();
 		}
 	}
 

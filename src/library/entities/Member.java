@@ -38,10 +38,10 @@ public class Member implements IMember {
 		// TODO Returns boolean indicating whether user has overdue on loan book
 		for (ILoan loan : this.loanList) {
 			if (loan.isOverDue()) {
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class Member implements IMember {
 	@Override
 	public void addLoan(ILoan loan) {
 		// TODO Add book loan to the loan list
-		if (!isBorrowingAllowed()) {
+		if (!this.isBorrowingAllowed()) {
 			throw new RuntimeException(
 					String.format("Member: addLoan : operation not allowed in state: %s", new Object[] { this.state }));
 		}

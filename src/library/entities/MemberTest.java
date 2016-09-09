@@ -8,6 +8,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import library.interfaces.daos.IBookDAO;
+import library.interfaces.daos.ILoanDAO;
+import library.interfaces.entities.IBook;
+import library.interfaces.entities.ILoan;
 import library.interfaces.entities.IMember;
 
 /**
@@ -15,24 +19,29 @@ import library.interfaces.entities.IMember;
  *
  */
 public class MemberTest {
-	
+
 	private Member mem;
+	private ILoanDAO loanDAO;
+	private IBookDAO bookDAO;
+	private ILoan loan;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		mem = new Member("Asmita","Singh","12345","asmita@gmail.com",101);
+		mem = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
+
 	}
 
 	/**
-	 * Test method for {@link library.entities.Member#Member(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
+	 * Test method for
+	 * {@link library.entities.Member#Member(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
 	 */
 	@Test
 	public final void testMember() {
 		boolean b = mem instanceof Member;
-		assertTrue("Member created",b);
+		assertTrue(b);
 	}
 
 	/**
@@ -40,7 +49,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasOverDueLoans() {
-		 // TODO
+		// TODO
 	}
 
 	/**
@@ -72,7 +81,8 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetFineAmount() {
-		fail("Not yet implemented"); // TODO
+		mem.addFine(5.0f);
+		assertTrue(5.0f== mem.getFineAmount());
 	}
 
 	/**
@@ -80,7 +90,9 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testAddFine() {
-		fail("Not yet implemented"); // TODO
+		float initialFine = mem.getFineAmount();
+		mem.addFine(5.0f);
+		assertTrue((initialFine + 5.0f) == mem.getFineAmount()); // Compare fine added to actual value
 	}
 
 	/**
@@ -92,11 +104,12 @@ public class MemberTest {
 	}
 
 	/**
-	 * Test method for {@link library.entities.Member#addLoan(library.interfaces.entities.ILoan)}.
+	 * Test method for
+	 * {@link library.entities.Member#addLoan(library.interfaces.entities.ILoan)}.
 	 */
 	@Test
 	public final void testAddLoan() {
-		mem
+
 	}
 
 	/**
@@ -108,7 +121,8 @@ public class MemberTest {
 	}
 
 	/**
-	 * Test method for {@link library.entities.Member#removeLoan(library.interfaces.entities.ILoan)}.
+	 * Test method for
+	 * {@link library.entities.Member#removeLoan(library.interfaces.entities.ILoan)}.
 	 */
 	@Test
 	public final void testRemoveLoan() {
@@ -129,8 +143,8 @@ public class MemberTest {
 	@Test
 	public final void testGetFirstName() {
 		String fName = mem.getFirstName();
-		assertEquals("Matching First Name","Asmita", fName);
-		}
+		assertEquals("Matching First Name", "Asmita", fName);
+	}
 
 	/**
 	 * Test method for {@link library.entities.Member#getLastName()}.
@@ -138,8 +152,8 @@ public class MemberTest {
 	@Test
 	public final void testGetLastName() {
 		String lName = mem.getLastName();
-		assertEquals("Matching Last Name","Singh", lName);	
-		}
+		assertEquals("Matching Last Name", "Singh", lName);
+	}
 
 	/**
 	 * Test method for {@link library.entities.Member#getContactPhone()}.
@@ -147,8 +161,8 @@ public class MemberTest {
 	@Test
 	public final void testGetContactPhone() {
 		String contNum = mem.getContactPhone();
-		assertEquals("Matching Contact Number","12345", contNum);
-		}
+		assertEquals("Matching Contact Number", "12345", contNum);
+	}
 
 	/**
 	 * Test method for {@link library.entities.Member#getEmailAddress()}.
@@ -156,7 +170,8 @@ public class MemberTest {
 	@Test
 	public final void testGetEmailAddress() {
 		String email = mem.getEmailAddress();
-		assertEquals("Matching email","asmita@gmail.com", email);	}
+		assertEquals("Matching email", "asmita@gmail.com", email);
+	}
 
 	/**
 	 * Test method for {@link library.entities.Member#getID()}.
@@ -164,6 +179,7 @@ public class MemberTest {
 	@Test
 	public final void testGetID() {
 		int id = mem.getID();
-		assertEquals("Matching Member Id",101, id);	}
+		assertEquals("Matching Member Id", 101, id);
+	}
 
 }

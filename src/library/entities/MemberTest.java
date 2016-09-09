@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import library.interfaces.daos.IBookDAO;
 import library.interfaces.daos.ILoanDAO;
+import library.interfaces.entities.EMemberState;
 import library.interfaces.entities.IBook;
 import library.interfaces.entities.ILoan;
 import library.interfaces.entities.IMember;
@@ -31,7 +32,6 @@ public class MemberTest {
 	@Before
 	public void setUp() throws Exception {
 		mem = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
-
 	}
 
 	/**
@@ -49,7 +49,8 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasOverDueLoans() {
-		// TODO
+		// check if there is not any fine it returns false
+		assertFalse(mem.hasOverDueLoans());
 	}
 
 	/**
@@ -57,7 +58,8 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasReachedLoanLimit() {
-		fail("Not yet implemented"); // TODO
+		//Returns false when there is member who has no book added to loan list
+		assertFalse(mem.hasReachedLoanLimit());
 	}
 
 	/**
@@ -65,7 +67,11 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasFinesPayable() {
-		fail("Not yet implemented"); // TODO
+		//Returns false when member has no fines in account
+		assertFalse(mem.hasFinesPayable());
+		//Add some fine and check again
+		mem.addFine(5.0f);
+		assertTrue(mem.hasFinesPayable());
 	}
 
 	/**
@@ -73,7 +79,13 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasReachedFineLimit() {
-		fail("Not yet implemented"); // TODO
+		//Returns false is member has no fine and thus not reached fine limit
+		assertFalse(mem.hasReachedFineLimit());
+		//Returns false is fine added is less than limit
+		mem.addFine(8.0f);
+		assertFalse(mem.hasReachedFineLimit());
+		mem.addFine(3.0f);
+		assertTrue(mem.hasReachedFineLimit());
 	}
 
 	/**
@@ -100,7 +112,10 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testPayFine() {
-		fail("Not yet implemented"); // TODO
+		//add fine amount and then pay some, check the remaining fine value to compare
+		mem.addFine(8.0f);
+		mem.payFine(5.0f);
+		assertTrue(3.0f == mem.getFineAmount());
 	}
 
 	/**
@@ -109,7 +124,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testAddLoan() {
-
+		fail("Not yet implemented"); // TODO Need Book & loan entity to test
 	}
 
 	/**
@@ -117,7 +132,8 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetLoans() {
-		fail("Not yet implemented"); // TODO
+		// Empty list as no book added
+		assertTrue(mem.getLoans().size() == 0);
 	}
 
 	/**
@@ -126,7 +142,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testRemoveLoan() {
-		fail("Not yet implemented"); // TODO
+		fail("Not yet implemented"); // TODO Need Book & loan entity to test
 	}
 
 	/**
@@ -134,7 +150,8 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetState() {
-		fail("Not yet implemented"); // TODO
+		//check initial state set
+		assertTrue(EMemberState.BORROWING_ALLOWED == mem.getState());
 	}
 
 	/**

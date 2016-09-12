@@ -4,7 +4,9 @@ import library.interfaces.entities.EBookState;
 import library.interfaces.entities.IBook;
 import library.interfaces.entities.ILoan;
 
-public abstract class Book implements IBook {
+public class Book implements IBook {
+	//Defining different data fields for the class.
+	//These will be called by the constructor.
 	private String author;
 	private String title;
 	private String callNumber;

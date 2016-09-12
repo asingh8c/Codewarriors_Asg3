@@ -2,19 +2,33 @@ package library.entities;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import library.interfaces.entities.ELoanState;
+import library.interfaces.entities.IBook;
+import library.interfaces.entities.IMember;
 /**
 * @author krishanthi
 *
 */
 public class LoanTest {
+		private static Loan loan1;
+	    private int id;
+	    private IMember borrower;
+	    private IBook book;
+	    private Date borrowDate;
+	    private Date dueDate;
+	    private ELoanState state;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		loan1 =new Loan( Krishanthi,"Welcome to JUnit Testing",10/9/2016,15/9/2016)
 	}
 
 	@AfterClass

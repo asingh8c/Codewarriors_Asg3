@@ -1,8 +1,9 @@
 package library.entities;
 
 import static org.junit.Assert.*;
+import java.util.*;
 
-import java.util.Date;
+//import java.util.Date;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,17 +19,21 @@ import library.interfaces.entities.IMember;
 *
 */
 public class LoanTest {
-		private static Loan loan1;
-	    private int id;
-	    private IMember borrower;
-	    private IBook book;
-	    private Date borrowDate;
-	    private Date dueDate;
-	    private ELoanState state;
+		
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		loan1 =new Loan( Krishanthi,"Welcome to JUnit Testing",10/9/2016,15/9/2016)
+		Book b1= new Book("Krishanthi", "Welcome to JUnit testing", "123456", 9999);
+		Member m1= new Member("Krishanthi","Wickramasooriya","123456","krishanthi@gmail.com",1234);
+		Date d1 = (new GregorianCalendar(2016, 9, 15)).getTime();
+		Date d2= new Date();
+		
+	
+		//Date d2 = new Date(2016, 10, 15);
+		
+		
+		
+
 	}
 
 	@AfterClass

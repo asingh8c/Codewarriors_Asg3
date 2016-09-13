@@ -5,6 +5,9 @@ package library.entities;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +35,20 @@ public class MemberTest {
 	@Before
 	public void setUp() throws Exception {
 		mem = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
+		/**
+		 * IBook[] book = new IBook[4]; book[0] = bookDAO.addBook("author1",
+		 * "title1", "callNo1"); book[1] = bookDAO.addBook("author1", "title2",
+		 * "callNo2"); book[2] = bookDAO.addBook("author1", "title3",
+		 * "callNo3"); book[3] = bookDAO.addBook("author1", "title4",
+		 * "callNo4"); book[4] = bookDAO.addBook("author2", "title5",
+		 * "callNo5");
+		 * 
+		 * 
+		 * //create a member with three book loans for (int i=0; i<3; i++) {
+		 * ILoan loan = loanDAO.createLoan(mem, book[i]);
+		 * loanDAO.commitLoan(loan); }
+		 **/
+
 	}
 
 	/**
@@ -49,8 +66,19 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasOverDueLoans() {
-		// check if there is not any fine it returns false
+		// check if there any book loan overdue it returns false as new member
+		// has no loan record
 		assertFalse(mem.hasOverDueLoans());
+		/** add an overdue book then test
+		Calendar cal = Calendar.getInstance();
+		Date now = cal.getTime();
+		cal.setTime(now);
+		cal.add(Calendar.DATE, ILoan.LOAN_PERIOD + 1);
+		Date checkDate = cal.getTime();
+		loanDAO.updateOverDueStatus(checkDate);
+		assertTrue(mem.hasOverDueLoans());
+		**/
+
 	}
 
 	/**
@@ -58,7 +86,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasReachedLoanLimit() {
-		//Returns false when there is member who has no book added to loan list
+		// Returns false when there is member who has no book added to loan list
 		assertFalse(mem.hasReachedLoanLimit());
 	}
 
@@ -67,9 +95,9 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasFinesPayable() {
-		//Returns false when member has no fines in account
+		// Returns false when member has no fines in account
 		assertFalse(mem.hasFinesPayable());
-		//Add some fine and check again
+		// Add some fine and check again
 		mem.addFine(5.0f);
 		assertTrue(mem.hasFinesPayable());
 	}
@@ -79,9 +107,9 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasReachedFineLimit() {
-		//Returns false is member has no fine and thus not reached fine limit
+		// Returns false is member has no fine and thus not reached fine limit
 		assertFalse(mem.hasReachedFineLimit());
-		//Returns false is fine added is less than limit
+		// Returns false is fine added is less than limit
 		mem.addFine(8.0f);
 		assertFalse(mem.hasReachedFineLimit());
 		mem.addFine(3.0f);
@@ -94,7 +122,7 @@ public class MemberTest {
 	@Test
 	public final void testGetFineAmount() {
 		mem.addFine(5.0f);
-		assertTrue(5.0f== mem.getFineAmount());
+		assertTrue(5.0f == mem.getFineAmount());
 	}
 
 	/**
@@ -104,7 +132,10 @@ public class MemberTest {
 	public final void testAddFine() {
 		float initialFine = mem.getFineAmount();
 		mem.addFine(5.0f);
-		assertTrue((initialFine + 5.0f) == mem.getFineAmount()); // Compare fine added to actual value
+		assertTrue((initialFine + 5.0f) == mem.getFineAmount()); // Compare fine
+																	// added to
+																	// actual
+																	// value
 	}
 
 	/**
@@ -112,7 +143,8 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testPayFine() {
-		//add fine amount and then pay some, check the remaining fine value to compare
+		// add fine amount and then pay some, check the remaining fine value to
+		// compare
 		mem.addFine(8.0f);
 		mem.payFine(5.0f);
 		assertTrue(3.0f == mem.getFineAmount());
@@ -150,7 +182,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetState() {
-		//check initial state set
+		// check initial state set
 		assertTrue(EMemberState.BORROWING_ALLOWED == mem.getState());
 	}
 

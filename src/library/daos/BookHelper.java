@@ -3,7 +3,10 @@
  */
 package library.daos;
 
+<<<<<<< HEAD
 import library.entities.Book;
+=======
+>>>>>>> master
 import library.interfaces.daos.IBookHelper;
 import library.interfaces.entities.IBook;
 

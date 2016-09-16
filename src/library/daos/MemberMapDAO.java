@@ -3,6 +3,7 @@
  */
 package library.daos;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +11,11 @@ import java.util.Map;
 
 import library.interfaces.daos.IMemberDAO;
 import library.interfaces.daos.IMemberHelper;
+=======
+import java.util.List;
+
+import library.interfaces.daos.IMemberDAO;
+>>>>>>> master
 import library.interfaces.entities.IMember;
 
 /**
@@ -17,6 +23,7 @@ import library.interfaces.entities.IMember;
  *
  */
 public class MemberMapDAO implements IMemberDAO {
+<<<<<<< HEAD
 	private IMemberHelper helper;
     private Map<Integer, IMember> memberMap;
     private int nextID;
@@ -26,13 +33,27 @@ public class MemberMapDAO implements IMemberDAO {
 	 * @see library.interfaces.daos.IMemberDAO#addMember(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public IMember addMember(String firstName, String lastName, String contactPhone, String emailAddress) {
+=======
+
+	/* (non-Javadoc)
+	 * @see library.interfaces.daos.IMemberDAO#addMember(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	public IMember addMember((String firstName, String lastName, String contactPhone, String emailAddress)) {
+>>>>>>> master
 		int id = this.getNextId();
         IMember mem = this.helper.makeMember(firstName, lastName, contactPhone, emailAddress, id);
         this.memberMap.put(id, mem);
         return mem;
+<<<<<<< HEAD
         }
     
     @Override
+=======
+		
+		return null;
+	}
+
+>>>>>>> master
 	/* (non-Javadoc)
 	 * @see library.interfaces.daos.IMemberDAO#getMemberByID(int)
 	 */
@@ -43,6 +64,7 @@ public class MemberMapDAO implements IMemberDAO {
 		return null;
 	}
 
+<<<<<<< HEAD
     @Override
 	/* (non-Javadoc)
 	 * @see library.interfaces.daos.IMemberDAO#listMembers()
@@ -53,6 +75,18 @@ public class MemberMapDAO implements IMemberDAO {
 	}
     
     @Override
+=======
+	/* (non-Javadoc)
+	 * @see library.interfaces.daos.IMemberDAO#listMembers()
+	 */
+	public List listMembers(int id) {
+		 if (this.memberMap.keySet().contains(id)) {
+	            return this.memberMap.get(id);
+	        }
+		return null;
+	}
+
+>>>>>>> master
 	/* (non-Javadoc)
 	 * @see library.interfaces.daos.IMemberDAO#findMembersByLastName(java.lang.String)
 	 */
@@ -66,9 +100,15 @@ public class MemberMapDAO implements IMemberDAO {
             list.add(m);
         }
         return Collections.unmodifiableList(list);
+<<<<<<< HEAD
 	}
 
     @Override
+=======
+		return null;
+	}
+
+>>>>>>> master
 	/* (non-Javadoc)
 	 * @see library.interfaces.daos.IMemberDAO#findMembersByEmailAddress(java.lang.String)
 	 */
@@ -82,14 +122,24 @@ public class MemberMapDAO implements IMemberDAO {
 	            list.add(m);
 	        }
 	        return Collections.unmodifiableList(list);
+<<<<<<< HEAD
 	}
 
     @Override
+=======
+	        return null;
+	}
+
+>>>>>>> master
 	/* (non-Javadoc)
 	 * @see library.interfaces.daos.IMemberDAO#findMembersByNames(java.lang.String, java.lang.String)
 	 */
 	public List findMembersByNames(String firstName, String lastName) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
+=======
+		return null;
+>>>>>>> master
 	if (firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty()) {
         throw new IllegalArgumentException(String.format("MemberMapDAO : findMembersByNames : firstName and lastName cannot be null or blank", new Object[0]));
     }
@@ -104,5 +154,8 @@ public class MemberMapDAO implements IMemberDAO {
 private int getNextId() {
     return this.nextID++;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 }

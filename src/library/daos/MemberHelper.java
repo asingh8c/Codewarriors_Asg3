@@ -3,7 +3,10 @@
  */
 package library.daos;
 
+<<<<<<< HEAD
 import library.entities.Member;
+=======
+>>>>>>> master
 import library.interfaces.daos.IMemberHelper;
 import library.interfaces.entities.IMember;
 

@@ -5,6 +5,7 @@ package library.daos;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,24 @@ public class MemberMapDAO implements IMemberDAO {
 	private IMemberHelper helper;
     private Map<Integer, IMember> memberMap;
     private int nextID;
+    
+    public MemberMapDAO(IMemberHelper helper) {
+        if (helper == null) {
+            throw new IllegalArgumentException(String.format("MemberMapDAO : constructor : helper cannot be null.", new Object[0]));
+        }
+        this.helper = helper;
+		this.memberMap = new HashMap<Integer, IMember>();
+        this.nextID = 1;
+    }
+
+    public MemberMapDAO(IMemberHelper helper, Map<Integer, IMember> memberMap) {
+        this(helper);
+        if (memberMap == null) {
+            throw new IllegalArgumentException(String.format("MemberMapDAO : constructor : memberMap cannot be null.", new Object[0]));
+        }
+        this.memberMap = memberMap;
+    }
+
     
     @Override
 	/* (non-Javadoc)

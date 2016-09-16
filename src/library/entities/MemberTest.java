@@ -22,33 +22,39 @@ import library.interfaces.entities.IMember;
  * @author asmita
  *
  */
+import library.daos.*;
+
 public class MemberTest {
 
-	private Member mem;
-	private ILoanDAO loanDAO;
-	private IBookDAO bookDAO;
+	private Member mem1;
+	private Member mem2;
+	private Member mem3;
+	private ILoanDAO loanDAO = new LoanMapDAO(new LoanHelper());
+	private IBookDAO bookDAO = new BookMapDAO(new BookHelper());
 	private ILoan loan;
+	IBook[] book = new IBook[10];
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		mem = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
-		/**
-		 * IBook[] book = new IBook[4]; book[0] = bookDAO.addBook("author1",
-		 * "title1", "callNo1"); book[1] = bookDAO.addBook("author1", "title2",
-		 * "callNo2"); book[2] = bookDAO.addBook("author1", "title3",
-		 * "callNo3"); book[3] = bookDAO.addBook("author1", "title4",
-		 * "callNo4"); book[4] = bookDAO.addBook("author2", "title5",
-		 * "callNo5");
-		 * 
-		 * 
-		 * //create a member with three book loans for (int i=0; i<3; i++) {
-		 * ILoan loan = loanDAO.createLoan(mem, book[i]);
-		 * loanDAO.commitLoan(loan); }
-		 **/
+		mem1 = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
+		mem2 = new Member("Prateek", "Narang", "54321", "prateek@gmail.com", 102);
+		mem3 = new Member("Krishanthi", "Wickram", "98765", "krishanthi@gmail.com", 103);
 
+		book[0] = bookDAO.addBook("author1", "title1", "callNo1");
+		book[1] = bookDAO.addBook("author2", "title2", "callNo2");
+		book[2] = bookDAO.addBook("author1", "title3", "callNo3");
+		book[3] = bookDAO.addBook("author2", "title4", "callNo4");
+		book[4] = bookDAO.addBook("author3", "title4", "callNo5");
+		book[5] = bookDAO.addBook("author3", "title1", "callNo6");
+
+		// create a member with three book loans
+		for (int i = 0; i < 5; i++) {
+			ILoan loan = loanDAO.createLoan(mem1, book[i]);
+			loanDAO.commitLoan(loan);
+		}
 	}
 
 	/**
@@ -57,7 +63,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testMember() {
-		boolean b = mem instanceof Member;
+		boolean b = mem1 instanceof Member;
 		assertTrue(b);
 	}
 
@@ -68,16 +74,15 @@ public class MemberTest {
 	public final void testHasOverDueLoans() {
 		// check if there any book loan overdue it returns false as new member
 		// has no loan record
-		assertFalse(mem.hasOverDueLoans());
-		/** add an overdue book then test
+		assertFalse(mem1.hasOverDueLoans());
+		// add an overdue book then test
 		Calendar cal = Calendar.getInstance();
 		Date now = cal.getTime();
 		cal.setTime(now);
 		cal.add(Calendar.DATE, ILoan.LOAN_PERIOD + 1);
 		Date checkDate = cal.getTime();
 		loanDAO.updateOverDueStatus(checkDate);
-		assertTrue(mem.hasOverDueLoans());
-		**/
+		assertTrue(mem1.hasOverDueLoans());
 
 	}
 
@@ -87,7 +92,10 @@ public class MemberTest {
 	@Test
 	public final void testHasReachedLoanLimit() {
 		// Returns false when there is member who has no book added to loan list
-		assertFalse(mem.hasReachedLoanLimit());
+		assertFalse(mem2.hasReachedLoanLimit());
+		// Returns true when there is member who has 5 book added to loan list
+		assertTrue(mem1.hasReachedLoanLimit());
+
 	}
 
 	/**
@@ -96,10 +104,10 @@ public class MemberTest {
 	@Test
 	public final void testHasFinesPayable() {
 		// Returns false when member has no fines in account
-		assertFalse(mem.hasFinesPayable());
+		assertFalse(mem1.hasFinesPayable());
 		// Add some fine and check again
-		mem.addFine(5.0f);
-		assertTrue(mem.hasFinesPayable());
+		mem1.addFine(5.0f);
+		assertTrue(mem1.hasFinesPayable());
 	}
 
 	/**
@@ -108,12 +116,12 @@ public class MemberTest {
 	@Test
 	public final void testHasReachedFineLimit() {
 		// Returns false is member has no fine and thus not reached fine limit
-		assertFalse(mem.hasReachedFineLimit());
+		assertFalse(mem1.hasReachedFineLimit());
 		// Returns false is fine added is less than limit
-		mem.addFine(8.0f);
-		assertFalse(mem.hasReachedFineLimit());
-		mem.addFine(3.0f);
-		assertTrue(mem.hasReachedFineLimit());
+		mem1.addFine(8.0f);
+		assertFalse(mem1.hasReachedFineLimit());
+		mem1.addFine(3.0f);
+		assertTrue(mem1.hasReachedFineLimit());
 	}
 
 	/**
@@ -121,8 +129,8 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetFineAmount() {
-		mem.addFine(5.0f);
-		assertTrue(5.0f == mem.getFineAmount());
+		mem1.addFine(5.0f);
+		assertTrue(5.0f == mem1.getFineAmount());
 	}
 
 	/**
@@ -130,9 +138,10 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testAddFine() {
-		float initialFine = mem.getFineAmount();
-		mem.addFine(5.0f);
-		assertTrue((initialFine + 5.0f) == mem.getFineAmount()); // Compare fine
+		float initialFine = mem1.getFineAmount();
+		mem1.addFine(5.0f);
+		assertTrue((initialFine + 5.0f) == mem1.getFineAmount()); // Compare
+																	// fine
 																	// added to
 																	// actual
 																	// value
@@ -145,9 +154,9 @@ public class MemberTest {
 	public final void testPayFine() {
 		// add fine amount and then pay some, check the remaining fine value to
 		// compare
-		mem.addFine(8.0f);
-		mem.payFine(5.0f);
-		assertTrue(3.0f == mem.getFineAmount());
+		mem1.addFine(8.0f);
+		mem1.payFine(5.0f);
+		assertTrue(3.0f == mem1.getFineAmount());
 	}
 
 	/**
@@ -156,7 +165,18 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testAddLoan() {
-		fail("Not yet implemented"); // TODO Need Book & loan entity to test
+		Calendar returnDate = Calendar.getInstance();
+		returnDate.setTime(new Date()); // Now use today date.
+		returnDate.add(Calendar.DATE, 15);
+		ILoan loan = new Loan(book[5], mem3, Calendar.getInstance().getTime(), returnDate.getTime());
+		// Now test if new loan is added to list
+		int prevListSize = mem3.getLoans().size();
+		mem3.addLoan(loan);
+		int newListSize = mem3.getLoans().size();
+		// testing add loan as loan list size will increment by one if loan is
+		// added to list
+		assertTrue(prevListSize == newListSize - 1);
+
 	}
 
 	/**
@@ -165,7 +185,7 @@ public class MemberTest {
 	@Test
 	public final void testGetLoans() {
 		// Empty list as no book added
-		assertTrue(mem.getLoans().size() == 0);
+		assertTrue(mem1.getLoans().size() != 0);
 	}
 
 	/**
@@ -174,7 +194,23 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testRemoveLoan() {
-		fail("Not yet implemented"); // TODO Need Book & loan entity to test
+		Calendar returnDate = Calendar.getInstance();
+		returnDate.setTime(new Date()); // Now use today date.
+		returnDate.add(Calendar.DATE, 15);
+		ILoan loan1 = new Loan(book[5], mem3, Calendar.getInstance().getTime(), returnDate.getTime());
+		ILoan loan2 = new Loan(book[3], mem3, Calendar.getInstance().getTime(), returnDate.getTime());
+		// add both the loans to loan list
+		mem3.addLoan(loan1);
+		mem3.addLoan(loan2);
+		// Record loan list size before removing any
+		int prevListSize = mem3.getLoans().size();
+		// remove loan1 from list
+		mem3.removeLoan(loan1);
+		// Record new list size after removing one loan from list
+		int newListSize = mem3.getLoans().size();
+		// testing add loan as loan list size will decrement by one if a loan is
+		// removed from list
+		assertTrue(prevListSize == newListSize + 1);
 	}
 
 	/**
@@ -182,8 +218,11 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetState() {
-		// check initial state set
-		assertTrue(EMemberState.BORROWING_ALLOWED == mem.getState());
+		// check initial state set for member who has no fine overdue or books
+		// overdue
+		assertTrue(EMemberState.BORROWING_ALLOWED == mem2.getState());
+		// check state set for member who has books overdue
+		assertTrue(EMemberState.BORROWING_DISALLOWED == mem1.getState());
 	}
 
 	/**
@@ -191,7 +230,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetFirstName() {
-		String fName = mem.getFirstName();
+		String fName = mem1.getFirstName();
 		assertEquals("Matching First Name", "Asmita", fName);
 	}
 
@@ -200,7 +239,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetLastName() {
-		String lName = mem.getLastName();
+		String lName = mem1.getLastName();
 		assertEquals("Matching Last Name", "Singh", lName);
 	}
 
@@ -209,7 +248,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetContactPhone() {
-		String contNum = mem.getContactPhone();
+		String contNum = mem1.getContactPhone();
 		assertEquals("Matching Contact Number", "12345", contNum);
 	}
 
@@ -218,7 +257,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetEmailAddress() {
-		String email = mem.getEmailAddress();
+		String email = mem1.getEmailAddress();
 		assertEquals("Matching email", "asmita@gmail.com", email);
 	}
 
@@ -227,7 +266,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetID() {
-		int id = mem.getID();
+		int id = mem1.getID();
 		assertEquals("Matching Member Id", 101, id);
 	}
 

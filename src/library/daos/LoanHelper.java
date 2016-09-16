@@ -5,6 +5,10 @@ package library.daos;
 
 import java.util.Date;
 
+<<<<<<< HEAD
+import library.entities.Loan;
+=======
+>>>>>>> master
 import library.interfaces.daos.ILoanHelper;
 import library.interfaces.entities.IBook;
 import library.interfaces.entities.ILoan;

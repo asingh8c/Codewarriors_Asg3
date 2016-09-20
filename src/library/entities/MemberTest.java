@@ -1,16 +1,15 @@
 /**
- * 
+ *
  */
 package library.entities;
 
 import static org.junit.Assert.*;
 
-<<<<<<< HEAD
+
 import java.util.Calendar;
 import java.util.Date;
 
-=======
->>>>>>> master
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,7 @@ import library.interfaces.entities.IMember;
  * @author asmita
  *
  */
-<<<<<<< HEAD
+
 import library.daos.*;
 
 public class MemberTest {
@@ -37,21 +36,19 @@ public class MemberTest {
 	private IBookDAO bookDAO = new BookMapDAO(new BookHelper());
 	private ILoan loan;
 	IBook[] book = new IBook[10];
-=======
+
 public class MemberTest {
 
 	private Member mem;
 	private ILoanDAO loanDAO;
 	private IBookDAO bookDAO;
 	private ILoan loan;
->>>>>>> master
-
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-<<<<<<< HEAD
+
 		mem1 = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
 		mem2 = new Member("Prateek", "Narang", "54321", "prateek@gmail.com", 102);
 		mem3 = new Member("Krishanthi", "Wickram", "98765", "krishanthi@gmail.com", 103);
@@ -68,9 +65,9 @@ public class MemberTest {
 			ILoan loan = loanDAO.createLoan(mem1, book[i]);
 			loanDAO.commitLoan(loan);
 		}
-=======
+
 		mem = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
->>>>>>> master
+
 	}
 
 	/**

@@ -1,12 +1,9 @@
 /**
- * 
+ *
  */
 package library.daos;
 
-<<<<<<< HEAD
 import library.entities.Member;
-=======
->>>>>>> master
 import library.interfaces.daos.IMemberHelper;
 import library.interfaces.entities.IMember;
 
@@ -16,12 +13,16 @@ import library.interfaces.entities.IMember;
  */
 public class MemberHelper implements IMemberHelper {
 
-	/* (non-Javadoc)
-	 * @see library.interfaces.daos.IMemberHelper#makeMember(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see library.interfaces.daos.IMemberHelper#makeMember(java.lang.String,
+	 * java.lang.String, java.lang.String, java.lang.String, int)
 	 */
+	@Override
 	public IMember makeMember(String firstName, String lastName, String contactPhone, String emailAddress, int id) {
-		
-		 return new Member(firstName, lastName, contactPhone, emailAddress, id);
+
+		return new Member(firstName, lastName, contactPhone, emailAddress, id);
 	}
 
 }

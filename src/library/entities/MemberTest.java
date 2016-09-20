@@ -81,7 +81,7 @@ public class MemberTest {
 		cal.setTime(now);
 		cal.add(Calendar.DATE, ILoan.LOAN_PERIOD + 1);
 		Date checkDate = cal.getTime();
-		loanDAO.updateOverDueStatus(checkDate);
+		loanDAO.updateOverDueStatus(checkDate);//pass the overdue date
 		assertTrue(mem1.hasOverDueLoans());
 
 	}
@@ -185,7 +185,10 @@ public class MemberTest {
 	@Test
 	public final void testGetLoans() {
 		// Empty list as no book added
+		assertTrue(mem2.getLoans().size() == 0);
+		//Member 1 has book loans
 		assertTrue(mem1.getLoans().size() != 0);
+
 	}
 
 	/**

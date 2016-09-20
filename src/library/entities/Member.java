@@ -86,7 +86,7 @@ public class Member implements IMember {
 		if (fine > 0) {
 			this.totalFine += fine;
 		} else {
-			throw new RuntimeException("Member can not be a negative number");
+			throw new RuntimeException("Member can not be a negative fine value");
 		}
 
 	}

@@ -10,6 +10,7 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import library.interfaces.daos.IBookDAO;
 import library.interfaces.daos.ILoanDAO;
@@ -63,6 +64,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testMember() {
+		//Testing normal Member instance
 		boolean b = mem1 instanceof Member;
 		assertTrue(b);
 	}
@@ -81,7 +83,7 @@ public class MemberTest {
 		cal.setTime(now);
 		cal.add(Calendar.DATE, ILoan.LOAN_PERIOD + 1);
 		Date checkDate = cal.getTime();
-		loanDAO.updateOverDueStatus(checkDate);//pass the overdue date
+		loanDAO.updateOverDueStatus(checkDate);// pass the overdue date
 		assertTrue(mem1.hasOverDueLoans());
 
 	}
@@ -145,6 +147,15 @@ public class MemberTest {
 																	// added to
 																	// actual
 																	// value
+		// Test adding negative value
+		try {
+			mem1.addFine(-15.0f);// Raises run time exception as Member can not
+									// ha
+		} catch (RuntimeException e) {
+			final String msg = "Member can not be a negative fine value";
+			assertEquals(msg, e.getMessage());
+		}
+
 	}
 
 	/**
@@ -157,6 +168,14 @@ public class MemberTest {
 		mem1.addFine(8.0f);
 		mem1.payFine(5.0f);
 		assertTrue(3.0f == mem1.getFineAmount());
+		// Test pay negative value
+		try {
+			mem1.payFine(-15.0f);// Raises run time exception as Member can not
+									// pay negative fine
+		} catch (RuntimeException e) {
+			final String msg = "Negative Value for fine payment and payment greater than total fine is not allowed";
+			assertEquals(msg, e.getMessage());
+		}
 	}
 
 	/**
@@ -176,7 +195,18 @@ public class MemberTest {
 		// testing add loan as loan list size will increment by one if loan is
 		// added to list
 		assertTrue(prevListSize == newListSize - 1);
-
+		// Adding a loan for member who has fine or book over due
+		mem3.addFine(15.0f);
+		ILoan loan1 = new Loan(book[4], mem3, Calendar.getInstance().getTime(), returnDate.getTime());
+		try {
+			mem3.addLoan(loan1);// Raises run time exception as Member crossing
+								// fine limit can not
+			// loan a book
+		} catch (RuntimeException e) {
+			final String msg = String.format("Member: addLoan : operation not allowed in state: %s",
+					new Object[] { mem3.getState() });
+			assertEquals(msg, e.getMessage());
+		}
 	}
 
 	/**
@@ -186,7 +216,7 @@ public class MemberTest {
 	public final void testGetLoans() {
 		// Empty list as no book added
 		assertTrue(mem2.getLoans().size() == 0);
-		//Member 1 has book loans
+		// Member 1 has book loans
 		assertTrue(mem1.getLoans().size() != 0);
 
 	}
@@ -202,6 +232,7 @@ public class MemberTest {
 		returnDate.add(Calendar.DATE, 15);
 		ILoan loan1 = new Loan(book[5], mem3, Calendar.getInstance().getTime(), returnDate.getTime());
 		ILoan loan2 = new Loan(book[3], mem3, Calendar.getInstance().getTime(), returnDate.getTime());
+		ILoan loan3 = new Loan(book[1], mem2, Calendar.getInstance().getTime(), returnDate.getTime());
 		// add both the loans to loan list
 		mem3.addLoan(loan1);
 		mem3.addLoan(loan2);
@@ -214,6 +245,16 @@ public class MemberTest {
 		// testing add loan as loan list size will decrement by one if a loan is
 		// removed from list
 		assertTrue(prevListSize == newListSize + 1);
+		// Test to remove a loan not belonging to the member
+		try {
+			mem3.removeLoan(loan3);// Raises run time exception as loan does not
+									// belong to member
+		} catch (RuntimeException e) {
+			final String msg = String.format("Member: removeLoan : loan is null or not found in loanList",
+					new Object[0]);
+			assertEquals(msg, e.getMessage());
+		}
+
 	}
 
 	/**

@@ -1,4 +1,6 @@
-
+/**
+ * Book entity representing books to be borrowed
+ */
 package library.entities;
 
 import library.interfaces.entities.EBookState;

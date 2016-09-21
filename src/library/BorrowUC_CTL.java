@@ -1,6 +1,5 @@
 package library;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -11,7 +10,6 @@ import library.interfaces.IBorrowUIListener;
 import library.interfaces.daos.IBookDAO;
 import library.interfaces.daos.ILoanDAO;
 import library.interfaces.daos.IMemberDAO;
-import library.interfaces.entities.EBookState;
 import library.interfaces.entities.IBook;
 import library.interfaces.entities.ILoan;
 import library.interfaces.entities.IMember;
@@ -58,6 +56,7 @@ public class BorrowUC_CTL implements ICardReaderListener, IScannerListener, IBor
 		previous = display.getDisplay();
 		display.setDisplay((JPanel) ui, "Borrow UI");
 		this.setState(EBorrowState.INITIALIZED);
+
 	}
 
 	public void close() {
@@ -143,6 +142,7 @@ public class BorrowUC_CTL implements ICardReaderListener, IScannerListener, IBor
 			this.setState(EBorrowState.CONFIRMING_LOANS);
 		}
 	}
+
 
 	private void setState(EBorrowState state) {
 		System.out.println("Setting state: " + (Object) ((Object) state));

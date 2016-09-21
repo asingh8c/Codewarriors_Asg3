@@ -10,14 +10,11 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import library.interfaces.daos.IBookDAO;
 import library.interfaces.daos.ILoanDAO;
 import library.interfaces.entities.EMemberState;
 import library.interfaces.entities.IBook;
 import library.interfaces.entities.ILoan;
-import library.interfaces.entities.IMember;
 
 /**
  * @author asmita
@@ -32,7 +29,6 @@ public class MemberTest {
 	private Member mem3;
 	private ILoanDAO loanDAO = new LoanMapDAO(new LoanHelper());
 	private IBookDAO bookDAO = new BookMapDAO(new BookHelper());
-	private ILoan loan;
 	IBook[] book = new IBook[10];
 
 	/**
@@ -64,7 +60,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testMember() {
-		//Testing normal Member instance
+		// Testing normal Member instance
 		boolean b = mem1 instanceof Member;
 		assertTrue(b);
 	}
@@ -131,6 +127,9 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetFineAmount() {
+		// Test for member with no fine in account
+		assertTrue(0 == mem3.getFineAmount());
+		// Add Fine to member 1 account
 		mem1.addFine(5.0f);
 		assertTrue(5.0f == mem1.getFineAmount());
 	}
@@ -150,7 +149,7 @@ public class MemberTest {
 		// Test adding negative value
 		try {
 			mem1.addFine(-15.0f);// Raises run time exception as Member can not
-									// ha
+									// have negative fine value
 		} catch (RuntimeException e) {
 			final String msg = "Member can not be a negative fine value";
 			assertEquals(msg, e.getMessage());

@@ -54,7 +54,6 @@ public class BorrowUC_CTL implements ICardReaderListener, IScannerListener, IBor
 		this.state = EBorrowState.CREATED;
         reader.addListener(this);
         scanner.addListener(this);
-
 	}
 
 	public void initialise() {

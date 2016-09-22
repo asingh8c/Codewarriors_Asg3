@@ -96,7 +96,11 @@ public class MemberTest {
 
 	@Test
 	public void testGetFineAmount() {
-		// TODO
+		// Test for member with no fine in account
+		assertTrue(0 == mem3.getFineAmount());
+		// Add Fine to member 1 account
+		mem1.addFine(5.0f);
+		assertTrue(5.0f == mem1.getFineAmount());
 	}
 
 	@Test

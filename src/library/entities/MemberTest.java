@@ -2,10 +2,47 @@ package library.entities;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import library.daos.BookHelper;
+import library.daos.BookMapDAO;
+import library.daos.LoanHelper;
+import library.daos.LoanMapDAO;
+import library.interfaces.daos.IBookDAO;
+import library.interfaces.daos.ILoanDAO;
+import library.interfaces.entities.IBook;
+import library.interfaces.entities.ILoan;
+
 public class MemberTest {
-	private Member mem1=new Member("Prateek", "Narang", "12345", "prateekpnarang@gmail.com", 101);
+	private Member mem1;
+	private Member mem2;
+	private Member mem3;
+	private ILoanDAO loanDAO = new LoanMapDAO(new LoanHelper());
+	private IBookDAO bookDAO = new BookMapDAO(new BookHelper());
+	IBook[] book = new IBook[10];
+
+
+	@Before
+	public void setUp() throws Exception {
+		mem1 = new Member("Prateek", "Narang", "54321", "prateek@gmail.com", 101);
+		mem2 = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 102);
+		mem3 = new Member("Krishanthi", "Wickram", "98765", "krishanthi@gmail.com", 103);
+
+		book[0] = bookDAO.addBook("testAuthor1", "testTitle1", "testCallNo1");
+		book[1] = bookDAO.addBook("testAuthor2", "testTitle2", "testCallNo2");
+		book[2] = bookDAO.addBook("testAuthor1", "testTitle3", "testCallNo3");
+		book[3] = bookDAO.addBook("testAuthor2", "testTitle4", "testCallNo4");
+		book[4] = bookDAO.addBook("testAuthor3", "testTitle4", "testCallNo5");
+		book[5] = bookDAO.addBook("testAuthor3", "testTitle1", "testCallNo6");
+
+		// create a member with three book loans
+		for (int i = 0; i < 5; i++) {
+			ILoan loan = loanDAO.createLoan(mem1, book[i]);
+			loanDAO.commitLoan(loan);
+		}
+	}
+
 
 	@Test
 	public void testMember() {

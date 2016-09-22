@@ -85,7 +85,13 @@ public class MemberTest {
 
 	@Test
 	public void testHasReachedFineLimit() {
-		// TODO
+		// Returns false if member has no fine and thus not reached fine limit
+		assertFalse(mem1.hasReachedFineLimit());
+		// Returns false if fine added is less than limit
+		mem1.addFine(8.0f);
+		assertFalse(mem1.hasReachedFineLimit());
+		mem1.addFine(3.0f);
+		assertTrue(mem1.hasReachedFineLimit());
 	}
 
 	@Test

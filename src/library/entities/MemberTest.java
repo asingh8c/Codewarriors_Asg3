@@ -1,6 +1,10 @@
 package library.entities;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +56,15 @@ public class MemberTest {
 
 	@Test
 	public void testHasOverDueLoans() {
-		 // TODO
+		assertFalse(mem1.hasOverDueLoans());
+		// add an overdue book then test
+		Calendar cal = Calendar.getInstance();
+		Date now = cal.getTime();
+		cal.setTime(now);
+		cal.add(Calendar.DATE, ILoan.LOAN_PERIOD + 1);
+		Date checkDate = cal.getTime();
+		loanDAO.updateOverDueStatus(checkDate);// pass the overdue date
+		assertTrue(mem1.hasOverDueLoans());
 	}
 
 	@Test

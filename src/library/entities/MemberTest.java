@@ -181,12 +181,14 @@ public class MemberTest {
 
 	@Test
 	public void testGetEmailAddress() {
-		// TODO
+		String email = mem1.getEmailAddress();
+		assertEquals("Matching email", "prateek@gmail.com", email);
 	}
 
 	@Test
 	public void testGetID() {
-		// TODO
+		int id = mem1.getID();
+		assertEquals("Matching Member Id", 101, id);
 	}
 
 }

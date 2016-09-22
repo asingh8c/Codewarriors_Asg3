@@ -169,7 +169,8 @@ public class MemberTest {
 
 	@Test
 	public void testGetLastName() {
-		// TODO
+		String lName = mem1.getLastName();
+		assertEquals("Matching Last Name", "Narang", lName);
 	}
 
 	@Test

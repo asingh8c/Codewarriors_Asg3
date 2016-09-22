@@ -175,7 +175,8 @@ public class MemberTest {
 
 	@Test
 	public void testGetContactPhone() {
-		// TODO
+		String contNum = mem2.getContactPhone();
+		assertEquals("Matching Contact Number", "12345", contNum);
 	}
 
 	@Test

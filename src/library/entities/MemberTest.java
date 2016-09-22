@@ -118,13 +118,24 @@ public class MemberTest {
 			mem1.addFine(-15.0f);// Raises run time exception as Member can not
 									// have negative fine value
 		} catch (RuntimeException e) {
-			//script runs true if exception arises
+
 			assertEquals(1, 1);
 		}
 	}
 
 	@Test
 	public void testPayFine() {
+		mem1.addFine(8.0f);
+		mem1.payFine(5.0f);
+		assertTrue(3.0f == mem1.getFineAmount());
+		// Test pay negative value
+		try {
+			mem1.payFine(-15.0f);// Raises run time exception as Member can not
+									// pay negative fine
+		} catch (RuntimeException e) {
+			// script runs true if exception arises
+			assertEquals(1, 1);
+		}
 	}
 
 	@Test

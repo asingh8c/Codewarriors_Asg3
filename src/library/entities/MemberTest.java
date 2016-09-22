@@ -1,5 +1,6 @@
 package library.entities;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -105,7 +106,21 @@ public class MemberTest {
 
 	@Test
 	public void testAddFine() {
-		// TODO
+		float initialFine = mem1.getFineAmount();
+		mem1.addFine(5.0f);
+		assertTrue((initialFine + 5.0f) == mem1.getFineAmount()); // Compare
+																	// fine
+																	// added to
+																	// actual
+																	// value
+		// Test adding negative value
+		try {
+			mem1.addFine(-15.0f);// Raises run time exception as Member can not
+									// have negative fine value
+		} catch (RuntimeException e) {
+			final String msg = "Member can not be a negative fine value";
+			assertEquals(msg, e.getMessage());
+		}
 	}
 
 	@Test

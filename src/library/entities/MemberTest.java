@@ -76,7 +76,11 @@ public class MemberTest {
 
 	@Test
 	public void testHasFinesPayable() {
-		// TODO
+		// Returns false when member has no fines in account
+		assertFalse(mem1.hasFinesPayable());
+		// Add some fine and check again
+		mem1.addFine(25.0f);
+		assertTrue(mem1.hasFinesPayable());
 	}
 
 	@Test

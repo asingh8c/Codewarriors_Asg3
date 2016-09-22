@@ -26,7 +26,6 @@ public class MemberTest {
 	private IBookDAO bookDAO = new BookMapDAO(new BookHelper());
 	IBook[] book = new IBook[10];
 
-
 	@Before
 	public void setUp() throws Exception {
 		mem1 = new Member("Prateek", "Narang", "54321", "prateek@gmail.com", 101);
@@ -46,7 +45,6 @@ public class MemberTest {
 			loanDAO.commitLoan(loan);
 		}
 	}
-
 
 	@Test
 	public void testMember() {
@@ -69,77 +67,81 @@ public class MemberTest {
 
 	@Test
 	public void testHasReachedLoanLimit() {
-		 // TODO
+		// Returns false when there is member who has no book added to loan list
+		assertFalse(mem2.hasReachedLoanLimit());
+		// Returns true when there is member who has 5 book added to loan list
+		assertTrue(mem1.hasReachedLoanLimit());
+
 	}
 
 	@Test
 	public void testHasFinesPayable() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testHasReachedFineLimit() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testGetFineAmount() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testAddFine() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testPayFine() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testAddLoan() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testGetLoans() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testRemoveLoan() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testGetState() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testGetFirstName() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testGetLastName() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testGetContactPhone() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testGetEmailAddress() {
-		 // TODO
+		// TODO
 	}
 
 	@Test
 	public void testGetID() {
-		 // TODO
+		// TODO
 	}
 
 }

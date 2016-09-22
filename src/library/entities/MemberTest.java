@@ -16,6 +16,7 @@ import library.daos.LoanHelper;
 import library.daos.LoanMapDAO;
 import library.interfaces.daos.IBookDAO;
 import library.interfaces.daos.ILoanDAO;
+import library.interfaces.entities.EMemberState;
 import library.interfaces.entities.IBook;
 import library.interfaces.entities.ILoan;
 
@@ -155,7 +156,9 @@ public class MemberTest {
 
 	@Test
 	public void testGetState() {
-		// TODO
+		assertTrue(EMemberState.BORROWING_ALLOWED == mem2.getState());
+		// check state set for member who has books overdue
+		assertTrue(EMemberState.BORROWING_DISALLOWED == mem1.getState());
 	}
 
 	@Test

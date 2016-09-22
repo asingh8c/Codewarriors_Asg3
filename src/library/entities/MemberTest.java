@@ -1,32 +1,27 @@
 /**
- * 
+ *
  */
 package library.entities;
 
-import static org.junit.Assert.*;
-
-<<<<<<< HEAD
 import java.util.Calendar;
 import java.util.Date;
 
-=======
->>>>>>> master
 import org.junit.Before;
 import org.junit.Test;
-
-import library.interfaces.daos.IBookDAO;
-import library.interfaces.daos.ILoanDAO;
-import library.interfaces.entities.EMemberState;
-import library.interfaces.entities.IBook;
-import library.interfaces.entities.ILoan;
-import library.interfaces.entities.IMember;
 
 /**
  * @author asmita
  *
  */
-<<<<<<< HEAD
-import library.daos.*;
+import library.daos.BookHelper;
+import library.daos.BookMapDAO;
+import library.daos.LoanHelper;
+import library.daos.LoanMapDAO;
+import library.interfaces.daos.IBookDAO;
+import library.interfaces.daos.ILoanDAO;
+import library.interfaces.entities.EMemberState;
+import library.interfaces.entities.IBook;
+import library.interfaces.entities.ILoan;
 
 public class MemberTest {
 
@@ -37,21 +32,20 @@ public class MemberTest {
 	private IBookDAO bookDAO = new BookMapDAO(new BookHelper());
 	private ILoan loan;
 	IBook[] book = new IBook[10];
-=======
+
 public class MemberTest {
 
 	private Member mem;
 	private ILoanDAO loanDAO;
 	private IBookDAO bookDAO;
 	private ILoan loan;
->>>>>>> master
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-<<<<<<< HEAD
+
 		mem1 = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
 		mem2 = new Member("Prateek", "Narang", "54321", "prateek@gmail.com", 102);
 		mem3 = new Member("Krishanthi", "Wickram", "98765", "krishanthi@gmail.com", 103);
@@ -68,9 +62,9 @@ public class MemberTest {
 			ILoan loan = loanDAO.createLoan(mem1, book[i]);
 			loanDAO.commitLoan(loan);
 		}
-=======
+
 		mem = new Member("Asmita", "Singh", "12345", "asmita@gmail.com", 101);
->>>>>>> master
+
 	}
 
 	/**
@@ -79,11 +73,11 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testMember() {
-<<<<<<< HEAD
+
 		boolean b = mem1 instanceof Member;
-=======
+
 		boolean b = mem instanceof Member;
->>>>>>> master
+
 		assertTrue(b);
 	}
 
@@ -92,7 +86,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasOverDueLoans() {
-<<<<<<< HEAD
+
 		// check if there any book loan overdue it returns false as new member
 		// has no loan record
 		assertFalse(mem1.hasOverDueLoans());
@@ -105,10 +99,10 @@ public class MemberTest {
 		loanDAO.updateOverDueStatus(checkDate);
 		assertTrue(mem1.hasOverDueLoans());
 
-=======
+
 		// check if there is not any fine it returns false
 		assertFalse(mem.hasOverDueLoans());
->>>>>>> master
+
 	}
 
 	/**
@@ -116,16 +110,16 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasReachedLoanLimit() {
-<<<<<<< HEAD
+
 		// Returns false when there is member who has no book added to loan list
 		assertFalse(mem2.hasReachedLoanLimit());
 		// Returns true when there is member who has 5 book added to loan list
 		assertTrue(mem1.hasReachedLoanLimit());
 
-=======
+
 		//Returns false when there is member who has no book added to loan list
 		assertFalse(mem.hasReachedLoanLimit());
->>>>>>> master
+
 	}
 
 	/**
@@ -133,19 +127,19 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasFinesPayable() {
-<<<<<<< HEAD
+
 		// Returns false when member has no fines in account
 		assertFalse(mem1.hasFinesPayable());
 		// Add some fine and check again
 		mem1.addFine(5.0f);
 		assertTrue(mem1.hasFinesPayable());
-=======
+
 		//Returns false when member has no fines in account
 		assertFalse(mem.hasFinesPayable());
 		//Add some fine and check again
 		mem.addFine(5.0f);
 		assertTrue(mem.hasFinesPayable());
->>>>>>> master
+
 	}
 
 	/**
@@ -153,7 +147,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testHasReachedFineLimit() {
-<<<<<<< HEAD
+
 		// Returns false is member has no fine and thus not reached fine limit
 		assertFalse(mem1.hasReachedFineLimit());
 		// Returns false is fine added is less than limit
@@ -161,7 +155,7 @@ public class MemberTest {
 		assertFalse(mem1.hasReachedFineLimit());
 		mem1.addFine(3.0f);
 		assertTrue(mem1.hasReachedFineLimit());
-=======
+
 		//Returns false is member has no fine and thus not reached fine limit
 		assertFalse(mem.hasReachedFineLimit());
 		//Returns false is fine added is less than limit
@@ -169,7 +163,7 @@ public class MemberTest {
 		assertFalse(mem.hasReachedFineLimit());
 		mem.addFine(3.0f);
 		assertTrue(mem.hasReachedFineLimit());
->>>>>>> master
+
 	}
 
 	/**
@@ -177,13 +171,13 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetFineAmount() {
-<<<<<<< HEAD
+
 		mem1.addFine(5.0f);
 		assertTrue(5.0f == mem1.getFineAmount());
-=======
+
 		mem.addFine(5.0f);
 		assertTrue(5.0f== mem.getFineAmount());
->>>>>>> master
+
 	}
 
 	/**
@@ -191,7 +185,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testAddFine() {
-<<<<<<< HEAD
+
 		float initialFine = mem1.getFineAmount();
 		mem1.addFine(5.0f);
 		assertTrue((initialFine + 5.0f) == mem1.getFineAmount()); // Compare
@@ -199,11 +193,11 @@ public class MemberTest {
 																	// added to
 																	// actual
 																	// value
-=======
+
 		float initialFine = mem.getFineAmount();
 		mem.addFine(5.0f);
 		assertTrue((initialFine + 5.0f) == mem.getFineAmount()); // Compare fine added to actual value
->>>>>>> master
+
 	}
 
 	/**
@@ -211,18 +205,18 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testPayFine() {
-<<<<<<< HEAD
+
 		// add fine amount and then pay some, check the remaining fine value to
 		// compare
 		mem1.addFine(8.0f);
 		mem1.payFine(5.0f);
 		assertTrue(3.0f == mem1.getFineAmount());
-=======
+
 		//add fine amount and then pay some, check the remaining fine value to compare
 		mem.addFine(8.0f);
 		mem.payFine(5.0f);
 		assertTrue(3.0f == mem.getFineAmount());
->>>>>>> master
+
 	}
 
 	/**
@@ -231,7 +225,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testAddLoan() {
-<<<<<<< HEAD
+
 		Calendar returnDate = Calendar.getInstance();
 		returnDate.setTime(new Date()); // Now use today date.
 		returnDate.add(Calendar.DATE, 15);
@@ -244,9 +238,9 @@ public class MemberTest {
 		// added to list
 		assertTrue(prevListSize == newListSize - 1);
 
-=======
+
 		fail("Not yet implemented"); // TODO Need Book & loan entity to test
->>>>>>> master
+
 	}
 
 	/**
@@ -255,11 +249,11 @@ public class MemberTest {
 	@Test
 	public final void testGetLoans() {
 		// Empty list as no book added
-<<<<<<< HEAD
+
 		assertTrue(mem1.getLoans().size() != 0);
-=======
+
 		assertTrue(mem.getLoans().size() == 0);
->>>>>>> master
+
 	}
 
 	/**
@@ -268,7 +262,7 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testRemoveLoan() {
-<<<<<<< HEAD
+
 		Calendar returnDate = Calendar.getInstance();
 		returnDate.setTime(new Date()); // Now use today date.
 		returnDate.add(Calendar.DATE, 15);
@@ -286,9 +280,9 @@ public class MemberTest {
 		// testing add loan as loan list size will decrement by one if a loan is
 		// removed from list
 		assertTrue(prevListSize == newListSize + 1);
-=======
+
 		fail("Not yet implemented"); // TODO Need Book & loan entity to test
->>>>>>> master
+
 	}
 
 	/**
@@ -296,16 +290,16 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetState() {
-<<<<<<< HEAD
+
 		// check initial state set for member who has no fine overdue or books
 		// overdue
 		assertTrue(EMemberState.BORROWING_ALLOWED == mem2.getState());
 		// check state set for member who has books overdue
 		assertTrue(EMemberState.BORROWING_DISALLOWED == mem1.getState());
-=======
+
 		//check initial state set
 		assertTrue(EMemberState.BORROWING_ALLOWED == mem.getState());
->>>>>>> master
+
 	}
 
 	/**
@@ -313,11 +307,11 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetFirstName() {
-<<<<<<< HEAD
+
 		String fName = mem1.getFirstName();
-=======
+
 		String fName = mem.getFirstName();
->>>>>>> master
+
 		assertEquals("Matching First Name", "Asmita", fName);
 	}
 
@@ -326,11 +320,11 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetLastName() {
-<<<<<<< HEAD
+
 		String lName = mem1.getLastName();
-=======
+
 		String lName = mem.getLastName();
->>>>>>> master
+
 		assertEquals("Matching Last Name", "Singh", lName);
 	}
 
@@ -339,11 +333,11 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetContactPhone() {
-<<<<<<< HEAD
+
 		String contNum = mem1.getContactPhone();
-=======
+
 		String contNum = mem.getContactPhone();
->>>>>>> master
+
 		assertEquals("Matching Contact Number", "12345", contNum);
 	}
 
@@ -352,11 +346,11 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetEmailAddress() {
-<<<<<<< HEAD
+
 		String email = mem1.getEmailAddress();
-=======
+
 		String email = mem.getEmailAddress();
->>>>>>> master
+
 		assertEquals("Matching email", "asmita@gmail.com", email);
 	}
 
@@ -365,12 +359,12 @@ public class MemberTest {
 	 */
 	@Test
 	public final void testGetID() {
-<<<<<<< HEAD
+
 		int id = mem1.getID();
-=======
+
 		int id = mem.getID();
->>>>>>> master
+
 		assertEquals("Matching Member Id", 101, id);
 	}
 
-}
+}}

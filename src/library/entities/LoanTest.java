@@ -112,7 +112,7 @@ public class LoanTest {
 
 	@Test
 	public void testGetState() {
-		fail("Not yet implemented");//have to implement
+		
 	}
 
 	@Test

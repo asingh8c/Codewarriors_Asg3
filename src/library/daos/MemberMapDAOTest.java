@@ -29,11 +29,11 @@ public class MemberMapDAOTest extends TestCase {
 		super.setUp();
 		helper = new MemberHelper();
 		memberDAO = new MemberMapDAO(helper);
-		IMember member = memberDAO.addMember("John", "Wick", "", email);
+		IMember member = memberDAO.addMember("John", "Wick", "0406115877", "johnwick@gmail.com");
 		memberID = member.getID();
 		//Adding member2
-		IMember member2 = memberDAO.addMember("John", "Sick", "", "");
-		IMember member3 = memberDAO.addMember("Rahul", "Wick", "", "");
+		IMember member2 = memberDAO.addMember("John", "Sick", "0406115878", "johnsick@gmail.com");
+		IMember member3 = memberDAO.addMember("Rahul", "Wick", "0406115879", "jonwick@gmail.com");
 		
 		nameForTheLastName = "Wick";
 		
@@ -43,7 +43,7 @@ public class MemberMapDAOTest extends TestCase {
 	 * Test method for {@link library.daos.MemberMapDAO#addMember()}.
 	 */
 	public void testAddMember() {
-		IMember member = memberDAO.addMember("", "", "", "");
+		IMember member = memberDAO.addMember("John", "Sick", "0406115878", "johnsick@gmail.com");
 		assertNotNull(member);
 	}
 

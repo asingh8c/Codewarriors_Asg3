@@ -1,3 +1,5 @@
+/** This is loan class and consists of several methods.**/
+
 package library.entities;
 
 import java.text.DateFormat;
@@ -16,7 +18,7 @@ implements ILoan {
     private Date dueDate;
     
     private ELoanState state;
-
+//Loan constructor 
     public Loan(IBook book, IMember borrower, Date borrowDate, Date returnDate) {
         if (!this.sane(book, borrower, borrowDate, returnDate)) {
             throw new IllegalArgumentException("Loan: constructor : bad parameters");
@@ -56,7 +58,7 @@ implements ILoan {
         }
         this.state = ELoanState.COMPLETE;
     }
-
+//return the boolean value ELoanState is overdue
     @Override
     public boolean isOverDue() {
         if (this.state == ELoanState.OVERDUE) {
@@ -64,7 +66,7 @@ implements ILoan {
         }
         return false;
     }
-
+//check the date is  over due
     @Override
     public boolean checkOverDue(Date currentDate) {
         if (this.state != ELoanState.CURRENT && this.state != ELoanState.OVERDUE) {
@@ -75,17 +77,17 @@ implements ILoan {
         }
         return this.isOverDue();
     }
-
+//Return member 
     @Override
     public IMember getBorrower() {
         return this.borrower;
     }
-
+//Return book id
     @Override
     public IBook getBook() {
         return this.book;
     }
-
+//Return id
     @Override
     public int getID() {
         return this.id;
@@ -94,7 +96,7 @@ implements ILoan {
     public ELoanState getState() {
         return this.state;
     }
-
+//Set string format
     public String toString() {
         return String.format("Loan ID:  %d\nAuthor:   %s\nTitle:    %s\nBorrower: %s %s\nBorrowed: %s\nDue Date: %s", this.id, this.book.getAuthor(), this.book.getTitle(), this.borrower.getFirstName(), this.borrower.getLastName(), DateFormat.getDateInstance().format(this.borrowDate), DateFormat.getDateInstance().format(this.dueDate));
     }

@@ -14,6 +14,7 @@ implements ILoan {
     private final IBook book;
     private Date borrowDate;
     private Date dueDate;
+    
     private ELoanState state;
 
     public Loan(IBook book, IMember borrower, Date borrowDate, Date returnDate) {

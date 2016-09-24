@@ -59,7 +59,7 @@ public class BookTest {
 		}
 
 	}
-
+	// This Script has to fail for the proper functionality of the application.
 	@Test
 	public void testBorrow3() {
 		returnDate = Calendar.getInstance();

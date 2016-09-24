@@ -77,48 +77,7 @@ public class BookTest {
 
 	}
 
-//	@Test
-//	public void testGetLoan() {
-//		// TODO
-//		// Needs information from another entity
-//		// Will be done in integration testing
-//	}
-//
-//	@Test
-//	public void testReturnBook() {
-//		// TODO
-//		// Needs information from another entity
-//		// Will be done in integration testing
-//	}
-//
-//	@Test
-//	public void testLose() {
-//		// TODO
-//		// Needs information from another entity
-//		// Will be done in integration testing
-//	}
-//
-//	@Test
-//	public void testRepair() {
-//		// TODO
-//		// Needs information from another entity
-//		// Will be done in integration testing
-//	}
-//
-//	@Test
-//	public void testDispose() {
-//		// TODO
-//		// Needs information from another entity
-//		// Will be done in integration testing
-//	}
-//
-//	@Test
-//	public void testGetState() {
-//		// TODO
-//		// Needs information from another entity
-//		// Will be done in integration testing
-//	}
-//
+
 //	@Test
 //	public void testGetAuthor() {
 //		String author = book.getAuthor();

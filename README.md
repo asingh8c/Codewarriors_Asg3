@@ -1,4 +1,4 @@
-# Codewarriors_Asg3
+# Codewarriors_Assigment 3
 Assignment 3 revolves around developing and testing a small application.
 
 You will be provided with some initial requirement and design documentation describing a small application. You will also be provided with some interface files defining the domain objects. These will be available in the Assignment 2 directory of the Resources section of the subject's Interact site.

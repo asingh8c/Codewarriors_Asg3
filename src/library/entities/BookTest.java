@@ -22,11 +22,11 @@ public class BookTest {
 	Book book = new Book("Prateek Narang", "Welcome to JUnit Testing.", "IT678", 7895012);
 	Member member = new Member("Prateek", "Narang", "54321", "prateek@gmail.com", 102);
 
-//	@Test
-//	public void testBook() {
-//		boolean status = book instanceof Book;
-//		assertTrue("Book created succesfully", status);
-//	}
+	@Test
+	public void testBook() {
+		boolean status = book instanceof Book;
+		assertTrue("Book created succesfully", status);
+	}
 
 	@Test
 	public void testBorrow1() {
@@ -78,27 +78,27 @@ public class BookTest {
 	}
 
 
-//	@Test
-//	public void testGetAuthor() {
-//		String author = book.getAuthor();
-//		assertEquals("Prateek Narang", author);
-//	}
-//
-//	@Test
-//	public void testGetTitle() {
-//		String title = book.getTitle();
-//		assertEquals("Welcome to JUnit Testing.", title);
-//	}
-//
-//	@Test
-//	public void testGetCallNumber() {
-//		String callNumber = book.getCallNumber();
-//		assertEquals("IT678", callNumber);
-//	}
-//
-//	@Test
-//	public void testGetID() {
-//		int id = book.getID();
-//		assertEquals(7895012, id);
-//	}
+	@Test
+	public void testGetAuthor() {
+		String author = book.getAuthor();
+		assertEquals("Prateek Narang", author);
+	}
+
+	@Test
+	public void testGetTitle() {
+		String title = book.getTitle();
+		assertEquals("Welcome to JUnit Testing.", title);
+	}
+
+	@Test
+	public void testGetCallNumber() {
+		String callNumber = book.getCallNumber();
+		assertEquals("IT678", callNumber);
+	}
+
+	@Test
+	public void testGetID() {
+		int id = book.getID();
+		assertEquals(7895012, id);
+	}
 }
